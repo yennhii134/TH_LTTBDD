@@ -1,22 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from 'react-native';
 import React from 'react';
+import screen2 from './screen2';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function App({ navigation }) {
+export default function Home({ navigation, route }) {
+  var colorPhone = route.params?.colorPhone || "blue";
+
   return (
     <View style={styles.container}>
       <View style={styles.viewImgPhone}>
-        <Image source={require('./img/vs_blue.png')} style={styles.imgPhone} />
+        <Image source={require('../img/vs_'+colorPhone+'.png')} style={styles.imgPhone} />
         <Text style={styles.text1}>Điện Thoại Vsmart Joy 3 - Hàng chính hãng</Text>
       </View>
       <View style={styles.viewRate}>
-        <Image source={require('./img/star.png')} style={styles.imgStar} />
-        <Image source={require('./img/star.png')} style={styles.imgStar} />
-        <Image source={require('./img/star.png')} style={styles.imgStar} />
-        <Image source={require('./img/star.png')} style={styles.imgStar} />
-        <Image source={require('./img/star.png')} style={styles.imgStar} />
+        <Image source={require('../img/star.png')} style={styles.imgStar} />
+        <Image source={require('../img/star.png')} style={styles.imgStar} />
+        <Image source={require('../img/star.png')} style={styles.imgStar} />
+        <Image source={require('../img/star.png')} style={styles.imgStar} />
+        <Image source={require('../img/star.png')} style={styles.imgStar} />
         <Text style={styles.text2}>(Xem 828 đánh giá)</Text>
       </View>
       <View style={styles.viewPrice}>
@@ -25,15 +28,15 @@ export default function App({ navigation }) {
       </View>
       <View style={styles.viewText}>
         <Text style={styles.text3}>Ở ĐÂU RẺ HƠN HOÀN TIỀN</Text>
-        <Image source={require('./img/question.png')} style={styles.imgQuestion}></Image>
+        <Image source={require('../img/question.png')} style={styles.imgQuestion}></Image>
       </View>
       <View style={styles.viewButtonColor}>
-        <TouchableOpacity style={styles.button}>
-          <View style={styles.buttonContent}>
-            <Text style={styles.buttonText}>4 MÀU-CHỌN MÀU</Text>
-            <Image source={require('./img/right-arrow.png')} style={styles.buttonImg} />
-          </View>
-        </TouchableOpacity>
+        <Pressable style={styles.buttonContent}
+          onPress={
+            () => { navigation.navigate("ChooseColor") }
+          }>
+          <Text style={styles.buttonText}>4 MÀU-CHỌN MÀU</Text>
+        </Pressable>
       </View>
       <View style={styles.viewButtonBuy}>
         <button style={styles.buttonBuy}>CHỌN MUA</button>
@@ -47,46 +50,49 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignContent: 'center',
-    marginLeft: 20,
-    marginTop: 15,
-    justifyContent: 'space-between',
+    padding: 15,
+    // justifyContent: 'center',
   },
-  viewImgPhone:{
+  viewImgPhone: {
+   marginBottom: 10
   },
   imgPhone: {
-    width: 301,
-    height: 361
+    width: '85%',
+    height: 320,
+    alignSelf: 'center'
   },
-  text1:{
+  text1: {
     fontWeight: '500',
-    fontSize: 18,
+    fontSize: 16,
     marginTop: 20
   },
   // ------------------
   viewRate: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginBottom: 10
   },
   imgStar: {
-    width: 32,
-    height: 32,
-    
+    width: 30,
+    height: 30,
+
   },
-  text2:{
+  text2: {
     marginLeft: 25,
-    fontSize: 17,
+    fontSize: 15,
     marginTop: 5,
     fontWeight: '500'
   },
   // --------------
   viewPrice: {
     flexDirection: 'row',
+    marginBottom: 10
   },
   price: {
     fontWeight: 'bold',
-    fontSize: 22
+    fontSize: 20
   },
   priceHide: {
-    fontSize: 20,
+    fontSize: 18,
     textDecorationLine: 'line-through',
     color: '#808080',
     fontWeight: 'bold',
@@ -94,11 +100,12 @@ const styles = StyleSheet.create({
   },
   viewText: {
     flexDirection: 'row',
+    marginBottom: 10
   },
   text3: {
     color: '#FA0000',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 12,
   },
   imgQuestion: {
     width: 26,
@@ -109,20 +116,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 35
-  },
-  button: {
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    borderWidth: 1,
-    width: 350,
-    height: 40,
-    fontSize: 16,
+    marginBottom: 15
   },
   buttonContent: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'center',
     alignItems: 'center',
+    width: '100%',
+    height: 35,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10
   },
   buttonImg: {
     width: 26,
@@ -132,12 +135,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    marginTop: 5,
-    marginLeft: 15
+    fontWeight: '500'
   },
-  buttonBuy:{
+  buttonBuy: {
     backgroundColor: 'rgba(238,10,10,255)',
-    width: 350,
+    width: '100%',
     height: 46,
     color: 'white',
     fontWeight: 'bold',
