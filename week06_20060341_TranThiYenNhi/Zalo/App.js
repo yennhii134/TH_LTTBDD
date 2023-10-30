@@ -29,32 +29,17 @@ export default function App() {
       image: require('./img/daucam_1.png'),
     },
   ];
-
-
-  // const Item = ({ title, image, shopName }) => (
-  //   <View style={styles.viewItem}>
-  //     <Image style={styles.image} source={image}></Image>
-  //     <View style={styles.viewDescription}>
-  //       <Text style={styles.title}>{title}</Text>
-  //       <View style={styles.rowShopName}>
-  //         <Text style={styles.shop}>Shop </Text>
-  //         <Text style={styles.shopName}>{shopName}</Text>
-  //       </View>
-  //     </View>
-  //     <button style={styles.buttonChat}>Chat</button>
-  //   </View>
-  // );
   
   const Item = ({ image }) => (
     <View style={styles.viewItem}>
       <Image style={styles.imageItem} source={image}></Image>
       <Text style={styles.nameItem}>Cáp chuyển từ Cổng USB sang PS2...</Text>
       <View style={styles.rowStar}>
-        <Image style={styles.imageStar} source={require('./img/star.png')}></Image>
-        <Image style={styles.imageStar} source={require('./img/star.png')}></Image>
-        <Image style={styles.imageStar} source={require('./img/star.png')}></Image>
-        <Image style={styles.imageStar} source={require('./img/star.png')}></Image>
-        <Image style={styles.imageStar} source={require('./img/star_1.png')}></Image>
+        <Image style={styles.imageStar} source={require('./img/star.png')} resizeMethod='contain'></Image>
+        <Image style={styles.imageStar} source={require('./img/star.png')} resizeMethod='contain'></Image>
+        <Image style={styles.imageStar} source={require('./img/star.png')} resizeMethod='contain'></Image>
+        <Image style={styles.imageStar} source={require('./img/star.png')} resizeMethod='contain'></Image>
+        <Image style={styles.imageStar} source={require('./img/star_1.png')} resizeMethod='contain'></Image>
         <Text style={styles.textRate}>(15)</Text>
       </View>
       <View style={styles.viewPrice}>
@@ -90,8 +75,14 @@ export default function App() {
               image={item.image}
               shopName={item.shopName} />}
           keyExtractor={item => item.id}
+          numColumns={2}
         />
       </SafeAreaView>
+      <View style={styles.viewFooter}>
+        <Image source={require('./img/menu.png')} style={styles.imgFooter}></Image>
+        <Image source={require('./img/hut.png')} style={styles.imgFooter}></Image>
+        <Image source={require('./img/return-button.png')} style={styles.imgFooter}></Image>
+      </View>
     </View>
   );
 }
@@ -101,7 +92,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
   },
   viewHeader: {
     backgroundColor: '#1BA9FF',
@@ -129,17 +120,53 @@ const styles = StyleSheet.create({
   },
   // ---------------
   viewBody:{
-    backgroundColor: 'red'
+  
+  },
+  viewItem:{
+    width: '40%',
+   marginHorizontal: 20,
+   marginVertical: 10
+  },
+  nameItem:{
+    marginLeft: 10
+  },
+  viewPrice:{
+    flexDirection: 'row',
+    
+  },
+  price:{
+    fontWeight: 'bold',
+    marginRight: 15,
+    marginLeft: 10
+  },
+  discount:{
+    color: 'rgba(150, 157, 170, 1)',
   },
   imageItem: {
-    width: 56,
-    height: 56,
+    width: '100%',
+    height: 100,
   },
   rowStar: {
     flexDirection: 'row',
+    marginLeft: 10
   },
   imageStar: {
+    width: 18,
+    height: 18,
+  },
+  viewFooter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#1BA9FF',
+    width: '100%',
+    height: '6%',
+    paddingHorizontal: 20,
+    paddingVertical: 5  
+  },
+
+  imgFooter: {
     width: 32,
-    height: 32,
+    height: 32
   }
 });
