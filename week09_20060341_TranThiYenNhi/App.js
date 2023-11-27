@@ -1,35 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-var increment = {type:'increment'}
-var initialState = {count: 0}
-function reducer(state, action){
-  switch (action.type) {
-    case 'increment': return {
-      count: state.count + 1
-    }
-      
-    default:
-      return state;
-  }
-}
-
-var store = createStore(reducer)
+import { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import increment from './redux/action';
+import store from './redux/store';
+import storeTK from './rtk/storeTK'
+import { Provider } from 'react-redux';
+import Screen01 from './Screen01'
+import Screen02 from './Screen02'
 
 
+const Stack = createNativeStackNavigator();
 export default function App() {
   return (
-    <View style={styles.container}>
-      
-    </View>
+    <Provider store={store}>
+       {/* <Provider store={storeTK}> */}
+
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Screen01">
+          <Stack.Screen name="Screen01" component={Screen01}></Stack.Screen>
+          <Stack.Screen name="Screen02" component={Screen02}></Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
