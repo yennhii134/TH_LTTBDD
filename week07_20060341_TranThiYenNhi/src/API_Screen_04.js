@@ -2,22 +2,26 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 
-export default function API_Screen_04({ navigation }) {
+export default function API_Screen_04({ navigation, route }) {
+  const { dataAddCart } = route.params || {}
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require('../img/left-chevron.png')} style={styles.imgHeader} resizeMode='contain'></Image>
+        <Pressable onPress={() => { navigation.navigate('API_Screen_03') }}>
+          <Image source={require('../img/left-chevron.png')} style={styles.imgHeader} resizeMode='contain'></Image>
+        </Pressable>
         <Text style={styles.textHeader}>Your orders</Text>
         <Image source={require('../img/search.png')} style={styles.imgHeader} resizeMode='contain'></Image>
       </View>
       <View style={styles.body}>
-        <View style={styles.invoice1}>
-          <View style={styles.rowName}>
-            <Text style={styles.name}>CAFE DELIVERY</Text>
-            <Text style={styles.name}>Order #18 </Text>
-          </View>
-          <Text style={styles.name}>$5</Text>
-        </View>
+        <Pressable style={styles.invoice1}>
+            <View style={styles.rowName}>
+              <Text style={styles.name}>CAFE DELIVERY</Text>
+              <Text style={styles.name}>Order #18 </Text>
+            </View>
+            <Text style={styles.name}>$5</Text>
+        </Pressable>
         <View style={styles.invoice2}>
           <View style={styles.rowName}>
             <Text style={styles.name}>CAFE</Text>
@@ -25,28 +29,24 @@ export default function API_Screen_04({ navigation }) {
           </View>
           <Text style={styles.name}>$25</Text>
         </View>
-        <View style={styles.item}>
-          <Image style={styles.imgItem} source={require('../img/salt.png')} resizeMode='contain'></Image>
-          <View style={styles.viewNAP}>
-            <Text style={styles.itemName}>Salt</Text>
-            <Text style={styles.price}>$5</Text>
-          </View>
-          <View style={styles.viewQuantity}>
-            <Image style={styles.imgHeader} source={require('../img/Image 231.png')} resizeMode='contain'></Image>
-            <Image style={styles.imgHeader} source={require('../img/Image 230.png')} resizeMode='contain'></Image>
-          </View>
-        </View>
-        <View style={styles.item}>
-          <Image style={styles.imgItem} source={require('../img/milk.png')} resizeMode='contain'></Image>
-          <View style={styles.viewNAP}>
-            <Text style={styles.itemName}>Milk</Text>
-            <Text style={styles.price}>$20</Text>
-          </View>
-          <View style={styles.viewQuantity}>
-            <Image style={styles.imgHeader} source={require('../img/Image 231.png')} resizeMode='contain'></Image>
-            <Image style={styles.imgHeader} source={require('../img/Image 230.png')} resizeMode='contain'></Image>
-          </View>
-        </View>
+
+        {
+          dataAddCart.map((item) => {
+            return (
+              <View style={styles.item} key={item.id}>
+                <Image style={styles.imgItem} source={{uri : item.image}} resizeMode='contain'></Image>
+                <View style={styles.viewNAP}>
+                  <Text style={styles.itemName}>{item.name}</Text>
+                  <Text style={styles.price}>{item.price}</Text>
+                </View>
+                <View style={styles.viewQuantity}>
+                  <Image style={styles.imgHeader} source={require('../img/Image 231.png')} resizeMode='contain'></Image>
+                  <Image style={styles.imgHeader} source={require('../img/Image 230.png')} resizeMode='contain'></Image>
+                </View>
+              </View>
+            )
+          })
+        }
       </View>
       <Pressable style={styles.button}>
         <Text style={styles.text1}>PAY NOW</Text>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     height: 24,
     width: 24
   },
-  body:{
+  body: {
     justifyContent: 'flex-start',
     alignItems: 'center',
     height: '80%',

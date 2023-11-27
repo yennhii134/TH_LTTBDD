@@ -7,14 +7,15 @@ import API_Screen_03 from './src/API_Screen_03';
 import API_Screen_04 from './src/API_Screen_04';
 
 const Stack = createNativeStackNavigator();
+
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="API_Screen_01">
-        <Stack.Screen name="API_Screen_01" component={API_Screen_01}></Stack.Screen>
-        <Stack.Screen name="API_Screen_02" component={API_Screen_02}></Stack.Screen>
-        <Stack.Screen name="API_Screen_03" component={API_Screen_03}></Stack.Screen>
-        <Stack.Screen name="API_Screen_04" component={API_Screen_04}></Stack.Screen>
+        <Stack.Screen name="API_Screen_01" component={API_Screen_01} options={{headerShown: false}}></Stack.Screen>
+        <Stack.Screen name="API_Screen_02" component={API_Screen_02} options={{headerShown: false}}></Stack.Screen>
+        <Stack.Screen name="API_Screen_03" component={API_Screen_03} options={{headerShown: false}}></Stack.Screen>
+        <Stack.Screen name="API_Screen_04" component={API_Screen_04} options={{headerShown: false}}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

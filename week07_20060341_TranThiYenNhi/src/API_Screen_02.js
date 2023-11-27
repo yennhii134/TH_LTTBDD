@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 
 export default function API_Screen_02({ navigation }) {
   var [data, setData] = useState([]);
+
   useEffect(() => {
     fetch("https://65460236fe036a2fa95511bd.mockapi.io/Shops")
       .then((response) => response.json())
@@ -14,14 +15,17 @@ export default function API_Screen_02({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Image source={require('../img/left-chevron.png')} style={styles.imgHeader} resizeMode='contain'></Image>
+        <Pressable onPress={() => {
+          navigation.navigate('API_Screen_01')}}>
+          <Image source={require('../img/left-chevron.png')} style={styles.imgHeader} resizeMode='contain'></Image>
+        </Pressable>
         <Text style={styles.textHeader}>Shops Near Me</Text>
         <Image source={require('../img/search.png')} style={styles.imgHeader} resizeMode='contain'></Image>
       </View>
       {
         data.map((item) => {
           return (
-            <View style={styles.body}>
+            <View style={styles.body} key={item.id}>
               <Pressable
                 onPress={() => {
                   if (item.name === 'Kitanda Espresso & Acai-U District') {
